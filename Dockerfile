@@ -21,4 +21,8 @@ RUN poetry install --no-dev --no-root --no-interaction --no-ansi
 # Copy the rest of the project
 COPY . .
 
-CMD ["uvicorn", "app.main:app", "--port", "8000"]
+# Expose port 8000
+EXPOSE 8000
+
+# Run the FastAPI application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
