@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:alpine
+    env_file:
+      - .env
+    networks:
+      - application
+      - default
+    ports:
+      - "${db_port}:5432"
+    environment:
+      POSTGRES_DB: ${db_name}
+      POSTGRES_USER: ${db_user}
+      POSTGRES_PASSWORD: ${db_password}
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - application
+      - default
+    ports:
+      - "${API_PORT}:8000"
+
+  
+  
+
+networks:
+  application:
